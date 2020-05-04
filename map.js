@@ -93,6 +93,7 @@ function Map(opt){
 		});
 
 		$("#map").css("height","100%");
+		$("#"+opt.id).css("height","100%");
 		$("#"+opt.id).parents().each(function(){
 			$(this).css("height","100%");
 		});
