@@ -34,14 +34,14 @@ new Map return a mapboxgl.Map object
 | Property | Values | Description |
 |--|--|--|
 |center| [longitude, latitude] | Set center of the map |
-|enable_gps|  |  |
-|id|  |  |
-|minZoom|  |  |
-|navigator_mode|  |  |
-|path|  |  |
-|popup_height_percentage|  |  |
-|popup_width_percentage|  |  |
-|search_button|  |  |
+|enable_gps| true or false (default) | If is true enable browser gps position e launch changeuserpos when position change  |
+|id| string | Is the css id where place the map |
+|minZoom| number | set the minimum zoom beyond which you cannot go (useful if you are creating a navigator) |
+|navigator_mode| true or false (default) | If is true the map will be tilted |
+|path| string | the path of library, usually is "Map-Interface" |
+|popup_height_percentage| number | if you use the onChange function you can insert markers with info inside a popup |
+|popup_width_percentage| number | if you use the onChange function you can insert markers with info inside a popup |
+|search_button| true or false (default) | if is true it shows a search button which if clicked will launch the onChange function. If it is false the onChange function is launched every time there is a change on the map such as a change of position, zoom etc... |
 |show_guide|  |  |
 |style|  |  |
 |table|  |   |
@@ -64,4 +64,3 @@ new Map return a mapboxgl.Map object
  - [Jquery](https://jquery.com)
  -  [Lazyload](https://appelsiini.net/projects/lazyload)
  - [Mapbox](https://www.mapbox.com)
-
