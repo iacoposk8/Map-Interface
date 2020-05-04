@@ -1,0 +1,21 @@
+{
+    "emptyTable":     "No result",
+    "info":           "Show from _START_ to _END_ of _TOTAL_ results",
+    "infoEmpty":      "Showing 0 to 0 of 0 results",
+    "infoFiltered":   "(filtered from _MAX_ total entries)",
+    "lengthMenu":     "Show _MENU_ results",
+    "loadingRecords": "Loading...",
+    "processing":     "Loading...",
+    "search":         "Search:",
+    "zeroRecords":    "No result",
+    "paginate": {
+	"first":      "Start",
+	"last":       "End",
+	"next":       "Next",
+	"previous":   "Previous"
+    },
+    "aria": {
+	"sortAscending":  ": Enable ascending column sorting",
+	"sortDescending": ": Enable descending column sorting"
+    }
+}
