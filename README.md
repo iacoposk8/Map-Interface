@@ -22,6 +22,7 @@ Create an html file outside the Map-Interface folder and on a host with https en
     	center: [-74.2598756,40.6976701]
     });
     </script>
+new Map return a mapboxgl.Map object
 
 ## Method
 | Method | Params | Description |
@@ -30,9 +31,9 @@ Create an html file outside the Map-Interface folder and on a host with https en
 |onChange|  |  |
 
 ## Property
-| Property | Default | Description |
+| Property | Values | Description |
 |--|--|--|
-|center|  |  |
+|center| [longitude, latitude] | Set center of the map |
 |enable_gps|  |  |
 |id|  |  |
 |minZoom|  |  |
@@ -58,8 +59,9 @@ Create an html file outside the Map-Interface folder and on a host with https en
     },
 
 ## Libraries of this project
-[Datatables](https://datatables.net)
-[Jquery](https://jquery.com)
-[Lazyload](https://appelsiini.net/projects/lazyload)
-[Mapbox](https://www.mapbox.com)
+
+ - [Datatables](https://datatables.net) 
+ - [Jquery](https://jquery.com)
+ -  [Lazyload](https://appelsiini.net/projects/lazyload)
+ - [Mapbox](https://www.mapbox.com)
 
