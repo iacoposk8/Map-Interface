@@ -22,7 +22,7 @@ Create an html file outside the Map-Interface folder and on a host with https en
     	center: [-74.2598756,40.6976701]
     });
     </script>
-new Map return a mapboxgl.Map object
+in this case map.map is a mapboxgl.Map object
 
 ## Method
 | Method | Params | Description |
@@ -39,7 +39,7 @@ new Map return a mapboxgl.Map object
 ## Property
 | Property | Values | Description |
 |--|--|--|
-|center| [longitude, latitude] | Set center of the map |
+|center| [latitude, longitude] | Set center of the map |
 |enable_gps| true or false (default is false) | If is true enable browser gps position e launch changeuserpos when position change  |
 |id| string | Is the css id where place the map |
 |minZoom| number | set the minimum zoom beyond which you cannot go (useful if you are creating a navigator) |
@@ -51,8 +51,6 @@ new Map return a mapboxgl.Map object
 |show_guide| true or false (default is true) | if true it shows a popup on how to use the map on first use |
 |style| string | path of json file of style generated on [https://www.maptiler.com](https://www.maptiler.com) |
 |table| object | lang: language file json there are two example in Map-Interface folder, cols: array with object. label: column header, visible: true or flase, order: asc or desc, orderable: column sorting string (in case it's hidden), check:  |
-|userlat|  |  |
-|userlng|  |  |
 |userpin|  |  |
 |zoom|  |  |
 
