@@ -26,13 +26,17 @@ Create an html file outside the Map-Interface folder and on a host with https en
 ## Method
 | Method | Params | Description |
 |--|--|--|
-|center|  |  |
 |change_user_position|  |  |
+|onChange|  |  |
+
+## Property
+| Property | Default | Description |
+|--|--|--|
+|center|  |  |
 |enable_gps|  |  |
 |id|  |  |
 |minZoom|  |  |
 |navigator_mode|  |  |
-|onChange|  |  |
 |path|  |  |
 |popup_height_percentage|  |  |
 |popup_width_percentage|  |  |
@@ -42,10 +46,6 @@ Create an html file outside the Map-Interface folder and on a host with https en
 |table|  |   |
 |userpin|  |  |
 |zoom|  |  |
-## Property
-| Property | Default | Description |
-|--|--|--|
-|  |  |  |
 
     table: {
     	lang: "it",
