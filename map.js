@@ -1,12 +1,12 @@
 function Map(opt){
 	var self = this;
 	//#############################################INIT#############################################
+	//$.getScript( opt.path+"lib/geo-viewport.js" ),
 	$.when(
 		$.getScript( opt.path+"lib/jquery.mobile-1.5.0-alpha.1.min.js" ),
 		$.getScript( opt.path+"lib/lazyload.js" ),
 		$.getScript( opt.path+"lib/jquery.dataTables.min.js" ),
 		$.getScript( opt.path+"lib/mapbox-gl.js" ),
-		$.getScript( opt.path+"lib/geo-viewport.js" ),
 		$.Deferred(function( deferred ){
 			$( deferred.resolve );
 		})
