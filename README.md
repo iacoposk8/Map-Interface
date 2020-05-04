@@ -23,28 +23,43 @@ Create an html file outside the Map-Interface folder and on a host with https en
     });
     </script>
 
-## Settings
+## Method
+| Method | Params | Description |
+|--|--|--|
+|center|  |  |
+|change_user_position|  |  |
+|enable_gps|  |  |
+|id|  |  |
+|minZoom|  |  |
+|navigator_mode|  |  |
+|onChange|  |  |
+|path|  |  |
+|popup_height_percentage|  |  |
+|popup_width_percentage|  |  |
+|search_button|  |  |
+|show_guide|  |  |
+|style|  |  |
+|table|  |   |
+|userpin|  |  |
+|zoom|  |  |
+## Property
+| Property | Default | Description |
+|--|--|--|
+|  |  |  |
 
-center
-change_user_position
-enable_gps
-id
-minZoom
-navigator_mode
-onChange
-path
-popup_height_percentage
-popup_width_percentage
-search_button
-show_guide
-style
-table.cols[i].label
-table.cols[i].visible
-table.cols[i].order 
-table.cols[i].orderable
-table.cols[i].check
-table.lang
-userpin
-zoom
+    table: {
+    	lang: "it",
+    	cols: [
+    		{label: "Distanza Km", visible: false, order: "asc", orderable:"Ordina per distanza"},
+    		{label: "Anni", visible: false, orderable:"Ordina per età"},
+    		{label: "Info", visible: true},
+    		{label: "Whatsapp", visible: false, check: "Visualizza solo con Whatsapp"}
+    	]
+    },
 
-libraries used
+## Libraries of this project
+[Datatables](https://datatables.net)
+[Jquery](https://jquery.com)
+[Lazyload](https://appelsiini.net/projects/lazyload)
+[Mapbox](https://www.mapbox.com)
+
