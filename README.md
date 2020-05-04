@@ -34,17 +34,17 @@ new Map return a mapboxgl.Map object
 | Property | Values | Description |
 |--|--|--|
 |center| [longitude, latitude] | Set center of the map |
-|enable_gps| true or false (default) | If is true enable browser gps position e launch changeuserpos when position change  |
+|enable_gps| true or false (default is false) | If is true enable browser gps position e launch changeuserpos when position change  |
 |id| string | Is the css id where place the map |
 |minZoom| number | set the minimum zoom beyond which you cannot go (useful if you are creating a navigator) |
-|navigator_mode| true or false (default) | If is true the map will be tilted |
+|navigator_mode| true or false (default is false) | If is true the map will be tilted |
 |path| string | the path of library, usually is "Map-Interface" |
 |popup_height_percentage| number | if you use the onChange function you can insert markers with info inside a popup |
 |popup_width_percentage| number | if you use the onChange function you can insert markers with info inside a popup |
-|search_button| true or false (default) | if is true it shows a search button which if clicked will launch the onChange function. If it is false the onChange function is launched every time there is a change on the map such as a change of position, zoom etc... |
-|show_guide|  |  |
-|style|  |  |
-|table|  |   |
+|search_button| true or false (default is false) | if is true it shows a search button which if clicked will launch the onChange function. If it is false the onChange function is launched every time there is a change on the map such as a change of position, zoom etc... |
+|show_guide| true or false (default is true) | if true it shows a popup on how to use the map on first use |
+|style| string | path of json file of style generated on [https://www.maptiler.com](https://www.maptiler.com) |
+|table| object | lang: language file json there are two example in Map-Interface folder, cols: array with object. label: column header, visible: true or flase, order: asc or desc, orderable: column sorting string (in case it's hidden), check:  |
 |userpin|  |  |
 |zoom|  |  |
 
