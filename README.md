@@ -29,6 +29,12 @@ new Map return a mapboxgl.Map object
 |--|--|--|
 |change_user_position|  |  |
 |onChange|  |  |
+|setCenter|  |  |
+|dataToView|  |  |
+|changeuserpos|  |  |
+|addMarker|  |  |
+|setBearing|  |  |
+|setZoom|  |  |
 
 ## Property
 | Property | Values | Description |
@@ -45,6 +51,8 @@ new Map return a mapboxgl.Map object
 |show_guide| true or false (default is true) | if true it shows a popup on how to use the map on first use |
 |style| string | path of json file of style generated on [https://www.maptiler.com](https://www.maptiler.com) |
 |table| object | lang: language file json there are two example in Map-Interface folder, cols: array with object. label: column header, visible: true or flase, order: asc or desc, orderable: column sorting string (in case it's hidden), check:  |
+|userlat|  |  |
+|userlng|  |  |
 |userpin|  |  |
 |zoom|  |  |
 
@@ -62,5 +70,5 @@ new Map return a mapboxgl.Map object
 
  - [Datatables](https://datatables.net) 
  - [Jquery](https://jquery.com)
- -  [Lazyload](https://appelsiini.net/projects/lazyload)
+ - [Lazyload](https://appelsiini.net/projects/lazyload)
  - [Mapbox](https://www.mapbox.com)
