@@ -19,7 +19,7 @@ Create an html file outside the Map-Interface folder and on a host with https en
     	zoom: 8, 
     	path: 'Map-Interface/',
     	style: 'style.json', 
-    	center: [-74.2598756,40.6976701]
+    	center: [40.6976701, -74.2598756],
     });
     </script>
 in this case map.map is a mapboxgl.Map object
