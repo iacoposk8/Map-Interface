@@ -50,11 +50,11 @@ in this case map.map is a mapboxgl.Map object
 |search_button| true or false (default is false) | if is true it shows a search button which if clicked will launch the onChange function. If it is false the onChange function is launched every time there is a change on the map such as a change of position, zoom etc... |
 |show_guide| true or false (default is true) | if true it shows a popup on how to use the map on first use |
 |style| string | path of json file of style generated on [https://www.maptiler.com](https://www.maptiler.com) |
-|table| object | lang: language file json there are two example in Map-Interface folder, cols: array with object. label: column header, visible: true or flase, order: asc or desc, orderable: column sorting string (to sort a hidden column), check: checkbox to filter the results of a column |
+|table| object | **lang**: language file json there are two example in Map-Interface folder, **cols**: array with object. **label**: column header, **visible**: true or flase, order: asc or desc, **orderable**: column sorting string (to sort a hidden column), **check**: checkbox to filter the results of a column |
 |userpin|  |  |
 |zoom|  |  |
 
-## esempio completo
+## Complete example
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="Map-Interface/map.js"></script>
