@@ -12,7 +12,7 @@ function Map(opt){
 		})
 	).done(function(){
 		$( "head" ).prepend( '<link href="'+opt.path+'lib/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />'+
-			'<link href="'+opt.path+'lib/mapbox-gl.css" rel="stylesheet" />' );
+			'<link href="'+opt.path+'lib/mapbox-gl.css" rel="stylesheet" /><style>.ui-loader{display:none;}</style>' );
 
 		var trs = "";
 		var filters = "";
@@ -60,7 +60,9 @@ function Map(opt){
 				}
 				
 				if(typeof opt.table.cols[i].check !== "undefined"){
-					filters += '<span><input type="checkbox" id = "check_opt_'+counter+'" class="table_check_opt" data-idx = "'+counter+'">'+opt.table.cols[i].check+'</span>';
+					for(var ck in opt.table.cols[i].check){
+						filters += '<span><input checked type="checkbox" class="table_check_opt" data-idx="'+counter+'" value="'+opt.table.cols[i].check[ck]["value"]+'">'+opt.table.cols[i].check[ck]["label"]+'</span>';
+					}
 				}
 
 				counter++;
@@ -69,7 +71,7 @@ function Map(opt){
 
 		$("#"+opt.id).css("height",$(window).height()+"px");
 		$("#"+opt.id).html('<div id="map"></div>');
-		$('<div id="table_list" class="page" style="display:none;">'+filters+'<table id="example" class="display" cellspacing="0" width="100%"><thead><tr>'+trs+'</tr></thead><tfoot><tr>'+trs+'</tr></tfoot><tbody></tbody></table></div>').insertAfter("#"+opt.id);
+		$('<div id="table_list" class="page" style="display:none;"><div class="filters_container">'+filters+'</div><table id="example" class="display" cellspacing="0" width="100%"><thead><tr>'+trs+'</tr></thead><tfoot><tr>'+trs+'</tr></tfoot><tbody></tbody></table></div>').insertAfter("#"+opt.id);
 		
 		if(opt.search_button){
 			$(document).ready(function(){
@@ -82,13 +84,21 @@ function Map(opt){
 		}
 
 		$(".table_check_opt").click(function(){
-			var wa = "0";
-			if($(this).is(':checked'))
-				wa = "1";
-				
+			var idx = $(this).attr("data-idx");
+			var regex = "(";
+			$('.table_check_opt[data-idx="'+idx+'"]').each(function(){
+				if($(this).is(':checked'))
+					regex += $(this).val()+"|";
+			});
+			if(regex.length > 1)
+				regex = regex.substring(0, regex.length - 1);
+			else
+				regex = "(?!";
+			regex += ")";
+			console.log(regex);
 			self.table
-			.columns(3)
-			.search(wa, true, false)
+			.columns(idx)
+			.search(regex, true, false)
 			.draw();
 		});
 
@@ -154,7 +164,7 @@ function Map(opt){
 			for(var i in data){
 				if(unique.indexOf(data[i].unique) == -1){
 					unique.push(data[i].unique);
-					self.addMarker([data[i].lat, data[i].lng], convertImageLazyload(data[i].content), data[i].custom);
+					self.addMarker([data[i].lng, data[i].lat], convertImageLazyload(data[i].content), data[i].custom);
 				}
 
 				if(row_unique.indexOf(data[i].unique) == -1 && typeof self.table !== "undefined"){
@@ -192,6 +202,8 @@ function Map(opt){
 			opt.navigator_mode = 0
 		else
 			opt.navigator_mode = 60
+
+		opt.center = [opt.center[1], opt.center[0]];
 
 		self.map = new mapboxgl.Map({
 			container: "map",
@@ -286,7 +298,7 @@ function Map(opt){
 				self.userpin.remove();
 			if(typeof opt.userpin === "undefined"){
 				opt.userpin = {
-					image: opt.map+"userpin.svg",
+					image: opt.path+"userpin.svg",
 					width: "27px",
 					height: "41px",
 					top: "-15px"
