@@ -50,9 +50,9 @@ in this case map.map is a mapboxgl.Map object
 |search_button| true or false (default is false) | if is true it shows a search button which if clicked will launch the onChange function. If it is false the onChange function is launched every time there is a change on the map such as a change of position, zoom etc... |
 |show_guide| true or false (default is true) | if true it shows a popup on how to use the map on first use |
 |style| string | path of json file of style generated on [https://www.maptiler.com](https://www.maptiler.com) |
-|table| object | **lang**: language file json there are two example in Map-Interface folder, **cols**: array with object. **label**: column header, **visible**: true or flase, order: asc or desc, **orderable**: column sorting string (to sort a hidden column), **check**: checkbox to filter the results of a column |
-|userpin|  |  |
-|zoom|  |  |
+|table| object | See an example at the end of the page. Displays a marker table below the map. **lang**: language file json there are two example in Map-Interface folder, **cols**: array with object. **label**: column header, **visible**: true or flase, order: asc or desc, **orderable**: column sorting string (to sort a hidden column), **check**: checkbox to filter the results of a column |
+|userpin| object | See an example at the end of the page. Change the graphic style of the user's marker (double click on the map to view it). **image**: path of the image, **width**: image width (px), **height**: image height (px), **top**: top position (px)  |
+|zoom| number | zoom level fo the map  |
 
 ## Complete example
 
@@ -73,6 +73,12 @@ in this case map.map is a mapboxgl.Map object
     			{label: "Info", visible: true},
     			{label: "Website", visible: false, check: [{"label":"Display only with website", "value":"1"}, {"label":"Display only without website", "value":"0"}]}
     		]
+    	},
+    	userpin: {
+    		image: "Map-Interface/navigator.svg",
+    		width: "27px",
+    		height: "41px",
+    		top: "-15px"
     	},
     	onChange:function(swLat, swLng, neLat, neLng, user_lat, user_lng){
     		//map.setZoom(10);
