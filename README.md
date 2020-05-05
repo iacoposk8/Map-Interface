@@ -24,17 +24,19 @@ Create an html file outside the Map-Interface folder and on a host with https en
     </script>
 in this case map.map is a mapboxgl.Map object
 
+## Events
+| Method | Params | Description |
+|--|--|--|
+|onChange| swLat, swLng, neLat, neLng, user_lat, user_lng | It is called every time there is a change in the map display area, such as a zoom or pan, etc. You will be given the coordinates south west of latitude, south west of longitude, north east of latitude, north east of longitude that you can use to limit the loading of markers. You will also be given the user's location. |
+
 ## Method
 | Method | Params | Description |
 |--|--|--|
-|change_user_position|  |  |
-|onChange|  |  |
+|changeuserpos| {"lat":number,"lng":number} | Change the user's location |
+|dataToView| Array of objects | Adds markers to the map and table. See an example at the bottom of the page |
+|setBearing| swLat, swLng, neLat, neLng, user_lat, user_lng |  |
 |setCenter|  |  |
-|dataToView|  |  |
-|changeuserpos|  |  |
-|addMarker|  |  |
-|setBearing|  |  |
-|setZoom|  |  |
+|setZoom| number | Allows you to change the zoom  |
 
 ## Property
 | Property | Values | Description |
