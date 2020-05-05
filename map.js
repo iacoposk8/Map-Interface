@@ -306,10 +306,6 @@ function Map(opt){
 			}
 
 			self.userpin = self.addMarker([self.userlng, self.userlat],JSON.stringify([self.userlng, self.userlat]), opt.userpin);
-			
-			if(typeof opt.change_user_position !== "undefined"){
-				opt.change_user_position(self.userlng, self.userlat);
-			}
 		}
 		
 		var prevArea = -1;
