@@ -34,8 +34,8 @@ in this case map.map is a mapboxgl.Map object
 |--|--|--|
 |changeuserpos| {"lat":number,"lng":number} | Change the user's location |
 |dataToView| Array of objects | Adds markers to the map and table. See an example at the bottom of the page |
-|setBearing| swLat, swLng, neLat, neLng, user_lat, user_lng |  |
-|setCenter|  |  |
+|setBearing| number in in degrees | Usually the north is put at the top, with this function you can rotate the map |
+|setCenter| {"lat":number,"lng":number} | Allows you to change the center of the map |
 |setZoom| number | Allows you to change the zoom  |
 
 ## Property
