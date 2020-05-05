@@ -50,19 +50,47 @@ in this case map.map is a mapboxgl.Map object
 |search_button| true or false (default is false) | if is true it shows a search button which if clicked will launch the onChange function. If it is false the onChange function is launched every time there is a change on the map such as a change of position, zoom etc... |
 |show_guide| true or false (default is true) | if true it shows a popup on how to use the map on first use |
 |style| string | path of json file of style generated on [https://www.maptiler.com](https://www.maptiler.com) |
-|table| object | lang: language file json there are two example in Map-Interface folder, cols: array with object. label: column header, visible: true or flase, order: asc or desc, orderable: column sorting string (in case it's hidden), check:  |
+|table| object | lang: language file json there are two example in Map-Interface folder, cols: array with object. label: column header, visible: true or flase, order: asc or desc, orderable: column sorting string (to sort a hidden column), check: checkbox to filter the results of a column |
 |userpin|  |  |
 |zoom|  |  |
 
-    table: {
-    	lang: "it",
-    	cols: [
-    		{label: "Distanza Km", visible: false, order: "asc", orderable:"Ordina per distanza"},
-    		{label: "Anni", visible: false, orderable:"Ordina per età"},
-    		{label: "Info", visible: true},
-    		{label: "Whatsapp", visible: false, check: "Visualizza solo con Whatsapp"}
-    	]
-    },
+## esempio completo
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="Map-Interface/map.js"></script>
+    <div id="map_container"></div>
+    <script>
+    var map = new Map({
+    	id: 'map_container', 
+    	zoom: 10, 
+    	path: 'Map-Interface/',
+    	style: 'style.json', 
+    	center: [40.6976701, -74.2598756],
+    	table: {
+    		lang: "it",
+    		cols: [
+    			{label: "Distance Km", visible: false, order: "asc", orderable:"Sort by distance"},
+    			{label: "Info", visible: true},
+    			{label: "Website", visible: false, check: [{"label":"Display only with website", "value":"1"}, {"label":"Display only without website", "value":"0"}]}
+    		]
+    	},
+    	onChange:function(swLat, swLng, neLat, neLng, user_lat, user_lng){
+    		//map.setZoom(10);
+    		data_view = [];
+    		e = [{"number":1,"lat":40.6976701,"lng":-74.2598756, "content":"Marker 1", "distance":10, "website":1}, {"number":2,"lat":40.6867701,"lng":-74.2488756, "content":"Marker 2", "distance":20, "website":0}, {"number":3,"lat":40.6267701,"lng":-74.2288756, "content":"Marker 3", "distance":40, "website":0},{"number":4,"lat":40.6567701,"lng":-74.2888756, "content":"Marker 4", "distance":30, "website":1}];
+    		for(i in e){
+    			data_view.push({
+    				unique: e[i].number,
+    				lat: e[i]["lat"],
+    				lng: e[i]["lng"],
+    				content: e[i].content,
+    				table: [e[i].distance, e[i].content, e[i].website ] 
+    			});
+    		}
+    		map.dataToView(data_view);
+    	}
+    });
+    </script>
 
 ## Libraries of this project
 
