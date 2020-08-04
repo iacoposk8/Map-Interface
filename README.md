@@ -33,7 +33,7 @@ in this case map.map is a mapboxgl.Map object
 | Method | Params | Description |
 |--|--|--|
 |changeuserpos| {"lat":number,"lng":number} | Change the user's location |
-|dataToView| Array of objects | Adds markers to the map and table. See an example at the bottom of the page |
+|dataToView| Array of objects, clear table true or false (default is true) | Adds markers to the map and table. See an example at the bottom of the page |
 |setBearing| number in in degrees | Usually the north is put at the top, with this function you can rotate the map |
 |setCenter| {"lat":number,"lng":number} | Allows you to change the center of the map |
 |setZoom| number | Allows you to change the zoom  |
@@ -44,6 +44,7 @@ in this case map.map is a mapboxgl.Map object
 |center| [latitude, longitude] | Set center of the map |
 |enable_gps| true or false (default is false) | If is true enable browser gps position e launch changeuserpos when position change  |
 |id| string | Is the css id where place the map |
+|lazyload| true or false (default is true) | if there are images inside the "content" field it will load them only if the user scrolls in that position |
 |minZoom| number | set the minimum zoom beyond which you cannot go (useful if you are creating a navigator) |
 |navigator_mode| true or false (default is false) | If is true the map will be tilted |
 |path| string | the path of library, usually is "Map-Interface" |
