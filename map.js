@@ -1,18 +1,18 @@
 function Map(opt){
 	var self = this;
 	//#############################################INIT#############################################
-	//$.getScript( opt.path+"lib/geo-viewport.js" ),
 	$.when(
 		$.getScript( opt.path+"lib/jquery.mobile-1.5.0-alpha.1.min.js" ),
 		$.getScript( opt.path+"lib/lazyload.js" ),
 		$.getScript( opt.path+"lib/jquery.dataTables.min.js" ),
 		$.getScript( opt.path+"lib/mapbox-gl.js" ),
+		$.getScript( opt.path+"lib/geo-viewport.js" ),
 		$.Deferred(function( deferred ){
 			$( deferred.resolve );
 		})
 	).done(function(){
 		$( "head" ).prepend( '<link href="'+opt.path+'lib/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />'+
-			'<link href="'+opt.path+'lib/mapbox-gl.css" rel="stylesheet" /><style>.ui-loader{display:none;}</style>' );
+			'<link href="'+opt.path+'lib/mapbox-gl.css" rel="stylesheet" />' );
 
 		var trs = "";
 		var filters = "";
@@ -60,9 +60,7 @@ function Map(opt){
 				}
 				
 				if(typeof opt.table.cols[i].check !== "undefined"){
-					for(var ck in opt.table.cols[i].check){
-						filters += '<span><input checked type="checkbox" class="table_check_opt" data-idx="'+counter+'" value="'+opt.table.cols[i].check[ck]["value"]+'">'+opt.table.cols[i].check[ck]["label"]+'</span>';
-					}
+					filters += '<span><input type="checkbox" id = "check_opt_'+counter+'" class="table_check_opt" data-idx = "'+counter+'">'+opt.table.cols[i].check+'</span>';
 				}
 
 				counter++;
@@ -71,7 +69,7 @@ function Map(opt){
 
 		$("#"+opt.id).css("height",$(window).height()+"px");
 		$("#"+opt.id).html('<div id="map"></div>');
-		$('<div id="table_list" class="page" style="display:none;"><div class="filters_container">'+filters+'</div><table id="example" class="display" cellspacing="0" width="100%"><thead><tr>'+trs+'</tr></thead><tfoot><tr>'+trs+'</tr></tfoot><tbody></tbody></table></div>').insertAfter("#"+opt.id);
+		$('<div id="table_list" class="page" style="display:none;">'+filters+'<table id="example" class="display" cellspacing="0" width="100%"><thead><tr>'+trs+'</tr></thead><tfoot><tr>'+trs+'</tr></tfoot><tbody></tbody></table></div>').insertAfter("#"+opt.id);
 		
 		if(opt.search_button){
 			$(document).ready(function(){
@@ -84,26 +82,17 @@ function Map(opt){
 		}
 
 		$(".table_check_opt").click(function(){
-			var idx = $(this).attr("data-idx");
-			var regex = "(";
-			$('.table_check_opt[data-idx="'+idx+'"]').each(function(){
-				if($(this).is(':checked'))
-					regex += $(this).val()+"|";
-			});
-			if(regex.length > 1)
-				regex = regex.substring(0, regex.length - 1);
-			else
-				regex = "(?!";
-			regex += ")";
-			console.log(regex);
+			var wa = "0";
+			if($(this).is(':checked'))
+				wa = "1";
+				
 			self.table
-			.columns(idx)
-			.search(regex, true, false)
+			.columns(3)
+			.search(wa, true, false)
 			.draw();
 		});
 
 		$("#map").css("height","100%");
-		$("#"+opt.id).css("height","100%");
 		$("#"+opt.id).parents().each(function(){
 			$(this).css("height","100%");
 		});
@@ -136,6 +125,8 @@ function Map(opt){
 			return ret;
 		}
 		function convertImageLazyload(content){
+			if(opt.lazyload !== "undefined" && opt.lazyload === false)
+				return content;
 			var img = regex(/<img(.*?)>/gm, content);
 			for(var i in img){
 				new_img = img[i][0].replace(' src=',' data-src=');
@@ -156,15 +147,19 @@ function Map(opt){
 		}
 
 		var unique = [];
-		self.dataToView = function(data){
+		self.dataToView = function(data, clear){
 			var row_unique = [];
-			if(typeof self.table !== "undefined")
-				self.table.clear();
+			if(typeof clear === "undefined")
+				clear = true;
+			if(typeof self.table !== "undefined"){
+				if(clear)
+					self.table.clear();
+			}
 			
 			for(var i in data){
 				if(unique.indexOf(data[i].unique) == -1){
 					unique.push(data[i].unique);
-					self.addMarker([data[i].lng, data[i].lat], convertImageLazyload(data[i].content), data[i].custom);
+					self.addMarker([data[i].lat, data[i].lng], convertImageLazyload(data[i].content), data[i].custom);
 				}
 
 				if(row_unique.indexOf(data[i].unique) == -1 && typeof self.table !== "undefined"){
@@ -202,8 +197,6 @@ function Map(opt){
 			opt.navigator_mode = 0
 		else
 			opt.navigator_mode = 60
-
-		opt.center = [opt.center[1], opt.center[0]];
 
 		self.map = new mapboxgl.Map({
 			container: "map",
@@ -298,7 +291,7 @@ function Map(opt){
 				self.userpin.remove();
 			if(typeof opt.userpin === "undefined"){
 				opt.userpin = {
-					image: opt.path+"userpin.svg",
+					image: opt.map+"userpin.svg",
 					width: "27px",
 					height: "41px",
 					top: "-15px"
@@ -306,6 +299,10 @@ function Map(opt){
 			}
 
 			self.userpin = self.addMarker([self.userlng, self.userlat],JSON.stringify([self.userlng, self.userlat]), opt.userpin);
+			
+			if(typeof opt.change_user_position !== "undefined"){
+				opt.change_user_position(self.userlng, self.userlat);
+			}
 		}
 		
 		var prevArea = -1;
