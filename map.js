@@ -447,7 +447,9 @@ function Map(opt){
 			} );*/
 
 			$(document).delegate(".paginate_button","click",function(){ 
-				$('html,body').animate({scrollTop : $('#example').offset().top},1000);
+				if(typeof opt.table_change_page_time === "undefined")
+					opt.table_change_page_time = 1000;
+				$('html,body').animate({scrollTop : $('#example').offset().top}, opt.table_change_page_time);
 			});
 
 			$('#example').on( 'page.dt', function () {
