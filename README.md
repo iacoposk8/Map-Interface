@@ -54,6 +54,7 @@ in this case map.map is a mapboxgl.Map object
 |show_guide| true or false (default is true) | if true it shows a popup on how to use the map on first use |
 |style| string | path of json file of style generated on [https://www.maptiler.com](https://www.maptiler.com) |
 |table| object | See an example at the end of the page. Displays a marker table below the map. **lang**: language file json there are two example in Map-Interface folder, **cols**: array with object. **label**: column header, **visible**: true or flase, order: asc or desc, **orderable**: column sorting string (to sort a hidden column), **check**: checkbox to filter the results of a column |
+|table_change_page_time| number | duration in milliseconds of the animation for the page change of the table |
 |userpin| object | See an example at the end of the page. Change the graphic style of the user's marker (double click on the map to view it). **image**: path of the image, **width**: image width (px), **height**: image height (px), **top**: top position (px)  |
 |zoom| number | zoom level of the map  |
 
