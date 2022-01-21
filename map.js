@@ -1,18 +1,19 @@
 function Map(opt){
 	var self = this;
 	//#############################################INIT#############################################
-	//$.getScript( opt.path+"lib/geo-viewport.js" ),
 	$.when(
 		$.getScript( opt.path+"lib/jquery.mobile-1.5.0-alpha.1.min.js" ),
 		$.getScript( opt.path+"lib/lazyload.js" ),
 		$.getScript( opt.path+"lib/jquery.dataTables.min.js" ),
 		$.getScript( opt.path+"lib/mapbox-gl.js" ),
+		$.getScript( opt.path+"lib/geo-viewport.js" ),
+		$.getScript( opt.path+"lib/traffic-layers.js" ),
 		$.Deferred(function( deferred ){
 			$( deferred.resolve );
 		})
 	).done(function(){
 		$( "head" ).prepend( '<link href="'+opt.path+'lib/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />'+
-			'<link href="'+opt.path+'lib/mapbox-gl.css" rel="stylesheet" /><style>.ui-loader{display:none;}</style>' );
+			'<link href="'+opt.path+'lib/mapbox-gl.css" rel="stylesheet" />' );
 
 		var trs = "";
 		var filters = "";
@@ -60,9 +61,7 @@ function Map(opt){
 				}
 				
 				if(typeof opt.table.cols[i].check !== "undefined"){
-					for(var ck in opt.table.cols[i].check){
-						filters += '<span><input checked type="checkbox" class="table_check_opt" data-idx="'+counter+'" value="'+opt.table.cols[i].check[ck]["value"]+'">'+opt.table.cols[i].check[ck]["label"]+'</span>';
-					}
+					filters += '<span><input type="checkbox" id = "check_opt_'+counter+'" class="table_check_opt" data-idx = "'+counter+'">'+opt.table.cols[i].check+'</span>';
 				}
 
 				counter++;
@@ -71,39 +70,31 @@ function Map(opt){
 
 		$("#"+opt.id).css("height",$(window).height()+"px");
 		$("#"+opt.id).html('<div id="map"></div>');
-		$('<div id="table_list" class="page" style="display:none;"><div class="filters_container">'+filters+'</div><table id="example" class="display" cellspacing="0" width="100%"><thead><tr>'+trs+'</tr></thead><tfoot><tr>'+trs+'</tr></tfoot><tbody></tbody></table></div>').insertAfter("#"+opt.id);
-		
+
 		if(opt.search_button){
-			$(document).ready(function(){
+			//$(document).ready(function(){
 				$("#map").append('<div id="search_area" class="button_map" style="top:10px;">'+search_area+'</div>');
 				
 				$("#search_area").click(function(){
 					search_in_area();
 				});
-			});
+			//});
 		}
 
+		$('<div id="table_list" class="page" style="display:none;">'+filters+'<table id="example" class="display" cellspacing="0" width="100%"><thead><tr>'+trs+'</tr></thead><tfoot><tr>'+trs+'</tr></tfoot><tbody></tbody></table></div>').insertAfter("#"+opt.id);
+		
 		$(".table_check_opt").click(function(){
-			var idx = $(this).attr("data-idx");
-			var regex = "(";
-			$('.table_check_opt[data-idx="'+idx+'"]').each(function(){
-				if($(this).is(':checked'))
-					regex += $(this).val()+"|";
-			});
-			if(regex.length > 1)
-				regex = regex.substring(0, regex.length - 1);
-			else
-				regex = "(?!";
-			regex += ")";
-			console.log(regex);
+			var wa = "0";
+			if($(this).is(':checked'))
+				wa = "1";
+				
 			self.table
-			.columns(idx)
-			.search(regex, true, false)
+			.columns(3)
+			.search(wa, true, false)
 			.draw();
 		});
 
 		$("#map").css("height","100%");
-		$("#"+opt.id).css("height","100%");
 		$("#"+opt.id).parents().each(function(){
 			$(this).css("height","100%");
 		});
@@ -136,8 +127,6 @@ function Map(opt){
 			return ret;
 		}
 		function convertImageLazyload(content){
-			if(opt.lazyload !== "undefined" && opt.lazyload === false)
-				return content;
 			var img = regex(/<img(.*?)>/gm, content);
 			for(var i in img){
 				new_img = img[i][0].replace(' src=',' data-src=');
@@ -158,19 +147,15 @@ function Map(opt){
 		}
 
 		var unique = [];
-		self.dataToView = function(data, clear){
+		self.dataToView = function(data){
 			var row_unique = [];
-			if(typeof clear === "undefined")
-				clear = true;
-			if(typeof self.table !== "undefined"){
-				if(clear)
-					self.table.clear();
-			}
+			if(typeof self.table !== "undefined")
+				self.table.clear();
 			
 			for(var i in data){
 				if(unique.indexOf(data[i].unique) == -1){
 					unique.push(data[i].unique);
-					self.addMarker([data[i].lng, data[i].lat], convertImageLazyload(data[i].content), data[i].custom);
+					self.addMarker([data[i].lat, data[i].lng], convertImageLazyload(data[i].content), data[i].custom);
 				}
 
 				if(row_unique.indexOf(data[i].unique) == -1 && typeof self.table !== "undefined"){
@@ -191,35 +176,52 @@ function Map(opt){
 
 		//#############################################MAP#############################################
 		
-		$.ajax({
+		/*$.ajax({
 			url: opt.path+opt.style,
 			type:'HEAD',
 			error: function()
 			{
 				alert(opt.path+opt.style+" Doesn't exists");
 			}
-		});
+		});*/
 		
 		if(typeof opt.zoom === "undefined")
 			opt.zoom = 15;
-		if(typeof opt.minZoom === "undefined")
-			opt.minZoom = 0;
+
 		if(typeof opt.navigator_mode === "undefined" || opt.navigator_mode === false)
 			opt.navigator_mode = 0
 		else
 			opt.navigator_mode = 60
-
-		opt.center = [opt.center[1], opt.center[0]];
-
+	
+		mapboxgl.accessToken = opt.token;
 		self.map = new mapboxgl.Map({
 			container: "map",
-			style: opt.path+opt.style,
+			style: opt.style,
 			center: opt.center,
 			zoom: opt.zoom,
 			minZoom: opt.minZoom,
 			pitch: opt.navigator_mode,
 			bearing: 0, // bearing in degrees
 		});
+
+		if(opt.traffic){
+			console.log("aaaaaa");
+			self.map.on('load', function(){
+
+				self.map.addSource('trafficSource', {
+					type: 'vector',
+					url: 'mapbox://mapbox.mapbox-traffic-v1'
+				});
+
+				var firstPOILabel = self.map.getStyle().layers.filter(function(obj){ 
+					return obj["source-layer"] == "poi_label";
+				});
+
+				for(var i = 0; i < trafficLayers.length; i++) {
+					self.map.addLayer(trafficLayers[i], firstPOILabel[0].id);
+				}
+			});
+		}
 		
 		//*********************************************EVENT//*********************************************
 		
@@ -312,6 +314,10 @@ function Map(opt){
 			}
 
 			self.userpin = self.addMarker([self.userlng, self.userlat],JSON.stringify([self.userlng, self.userlat]), opt.userpin);
+			
+			if(typeof opt.change_user_position !== "undefined"){
+				opt.change_user_position(self.userlng, self.userlat);
+			}
 		}
 		
 		var prevArea = -1;
@@ -329,7 +335,7 @@ function Map(opt){
 			var diff = Math.abs(sw[1] - prevArea[0]) + Math.abs(sw[0] - prevArea[1]) + Math.abs(ne[1] - prevArea[2]) + Math.abs(ne[0] - prevArea[3])
 			prevArea = [sw[1], sw[0], ne[1], ne[0]];
 			
-			if(opt.search_button || (typeof opt.onChange !== "undefined" && diff > 0.000001)){
+			if(typeof opt.onChange !== "undefined" && diff > 0.000001){
 				//console.log(diff);
 				opt.onChange(sw[1], sw[0], ne[1], ne[0], self.userlat, self.userlng);
 			}
@@ -447,9 +453,7 @@ function Map(opt){
 			} );*/
 
 			$(document).delegate(".paginate_button","click",function(){ 
-				if(typeof opt.table_change_page_time === "undefined")
-					opt.table_change_page_time = 1000;
-				$('html,body').animate({scrollTop : $('#example').offset().top}, opt.table_change_page_time);
+				$('html,body').animate({scrollTop : $('#example').offset().top},1000);
 			});
 
 			$('#example').on( 'page.dt', function () {
