@@ -18,12 +18,13 @@ Create an html file outside the Map-Interface folder and on a host with https en
     var map = new Map({
     	id: 'map_container', 
     	zoom: 8, 
-    	path: 'Map-Interface/',
-    	style: 'style.json', 
+    	style: 'mapbox://styles/mapbox/streets-v11', 
+    	token: 'XXXXXXXXXXXXXXXXXXXXXXXXXX', 
     	center: [40.6976701, -74.2598756],
     });
     </script>
-in this case map.map is a mapboxgl.Map object
+in this case map.map is a mapboxgl.Map object.
+You can generate token on [https://www.maptiler.com](https://www.maptiler.com)
 
 ## Events
 | Method | Params | Description |
