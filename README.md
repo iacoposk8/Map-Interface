@@ -52,7 +52,7 @@ in this case map.map is a mapboxgl.Map object
 |popup_width_percentage| number | if you use the onChange function you can insert markers with info inside a popup |
 |search_button| bool (default is false) | if is true it shows a search button which if clicked will launch the onChange function. If it is false the onChange function is launched every time there is a change on the map such as a change of position, zoom etc... |
 |show_guide| bool (default is true) | if true it shows a popup on how to use the map on first use |
-|style| string | path of json file of style generated on [https://www.maptiler.com](https://www.maptiler.com) |
+|style| string | path of json file of style generated on [https://www.maptiler.com](https://www.maptiler.com) or url |
 |table| object | See an example at the end of the page. Displays a marker table below the map. **lang**: language file json there are two example in Map-Interface folder, **cols**: array with object. **label**: column header, **visible**: true or flase, order: asc or desc, **orderable**: column sorting string (to sort a hidden column), **check**: checkbox to filter the results of a column |
 |token| string | Token generated on [https://www.maptiler.com](https://www.maptiler.com)  |
 |traffic| bool (default is false) | Color the streets based on traffic  |
@@ -69,7 +69,8 @@ in this case map.map is a mapboxgl.Map object
     	id: 'map_container', 
     	zoom: 10, 
     	path: 'Map-Interface/',
-    	style: 'style.json', 
+    	style: 'mapbox://styles/mapbox/streets-v11', 
+    	token: 'XXXXXXXXXXXXXXXXXXXXXXXXXX', 
     	center: [40.6976701, -74.2598756],
     	table: {
     		lang: "it",
