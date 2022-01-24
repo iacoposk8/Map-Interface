@@ -33,17 +33,7 @@ function Map(opt){
 			var mex = 'Double-click anywhere on the map to change your position and click on "'+search_area+'" for see the points of interest';
 		}
 		
-		$("<style type='text/css'> .button{background:#3498db; color:#fff; border-radius:3px; position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0; width:200px; border:1px solid #000; text-align:center; z-index:99; cursor:pointer; font-size:23px; padding:5px 10px;}</style>").appendTo("head");
-		
-		if(opt.search_button){
-			$(document).ready(function(){
-				$("#map").append('<div id="search_area" class="button" style="top:10px;">'+search_area+'</div>');
-				
-				$("#search_area").click(function(){
-					search_in_area();
-				});
-			});
-		}
+		$("<style type='text/css'> .button_map{background:#3498db; color:#fff; border-radius:3px; position:absolute; margin-left: auto; margin-right: auto; left: 0; right: 0; width:200px; border:1px solid #000; text-align:center; z-index:99; cursor:pointer; font-size:23px; padding:5px 10px;}</style>").appendTo("head");
 		
 		function ord_reverse(type){
 			if(type=="asc")
@@ -80,6 +70,17 @@ function Map(opt){
 
 		$("#"+opt.id).css("height",$(window).height()+"px");
 		$("#"+opt.id).html('<div id="map"></div>');
+
+		if(opt.search_button){
+			//$(document).ready(function(){
+				$("#map").append('<div id="search_area" class="button_map" style="top:10px;">'+search_area+'</div>');
+				
+				$("#search_area").click(function(){
+					search_in_area();
+				});
+			//});
+		}
+
 		$('<div id="table_list" class="page" style="display:none;">'+filters+'<table id="example" class="display" cellspacing="0" width="100%"><thead><tr>'+trs+'</tr></thead><tfoot><tr>'+trs+'</tr></tfoot><tbody></tbody></table></div>').insertAfter("#"+opt.id);
 		
 		$(".table_check_opt").click(function(){
@@ -277,7 +278,7 @@ function Map(opt){
 				
 				if((new Date() - lastmovestart) > 500){
 					setCenterDisabled = true;
-					$("#map").append('<div id="repositions" class="button" style="bottom:10px;">'+repositions+'</div>');
+					$("#map").append('<div id="repositions" class="button_map" style="bottom:10px;">'+repositions+'</div>');
 				}
 			});
 
@@ -304,7 +305,7 @@ function Map(opt){
 				self.userpin.remove();
 			if(typeof opt.userpin === "undefined"){
 				opt.userpin = {
-					image: opt.map+"userpin.svg",
+					image: opt.path+"userpin.svg",
 					width: "27px",
 					height: "41px",
 					top: "-15px"
@@ -312,6 +313,10 @@ function Map(opt){
 			}
 
 			self.userpin = self.addMarker([self.userlng, self.userlat],JSON.stringify([self.userlng, self.userlat]), opt.userpin);
+			
+			if(typeof opt.change_user_position !== "undefined"){
+				opt.change_user_position(self.userlng, self.userlat);
+			}
 		}
 		
 		var prevArea = -1;
