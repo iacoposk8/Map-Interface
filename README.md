@@ -1,4 +1,5 @@
 
+
 # Map Interface
 A simple interface for Mapbox
 
@@ -42,19 +43,19 @@ in this case map.map is a mapboxgl.Map object
 | Property | Values | Description |
 |--|--|--|
 |center| [latitude, longitude] | Set center of the map |
-|enable_gps| true or false (default is false) | If is true enable browser gps position e launch changeuserpos when position change  |
+|enable_gps| bool (default is false) | If is true enable browser gps position e launch changeuserpos when position change  |
 |id| string | Is the css id where place the map |
-|lazyload| true or false (default is true) | if there are images inside the "content" field it will load them only if the user scrolls in that position |
 |minZoom| number | set the minimum zoom beyond which you cannot go (useful if you are creating a navigator) |
-|navigator_mode| true or false (default is false) | If is true the map will be tilted |
+|navigator_mode| bool (default is false) | If is true the map will be tilted |
 |path| string | the path of library, usually is "Map-Interface" |
 |popup_height_percentage| number | if you use the onChange function you can insert markers with info inside a popup |
 |popup_width_percentage| number | if you use the onChange function you can insert markers with info inside a popup |
-|search_button| true or false (default is false) | if is true it shows a search button which if clicked will launch the onChange function. If it is false the onChange function is launched every time there is a change on the map such as a change of position, zoom etc... |
-|show_guide| true or false (default is true) | if true it shows a popup on how to use the map on first use |
+|search_button| bool (default is false) | if is true it shows a search button which if clicked will launch the onChange function. If it is false the onChange function is launched every time there is a change on the map such as a change of position, zoom etc... |
+|show_guide| bool (default is true) | if true it shows a popup on how to use the map on first use |
 |style| string | path of json file of style generated on [https://www.maptiler.com](https://www.maptiler.com) |
 |table| object | See an example at the end of the page. Displays a marker table below the map. **lang**: language file json there are two example in Map-Interface folder, **cols**: array with object. **label**: column header, **visible**: true or flase, order: asc or desc, **orderable**: column sorting string (to sort a hidden column), **check**: checkbox to filter the results of a column |
-|table_change_page_time| number | duration in milliseconds of the animation for the page change of the table |
+|token| string | Token generated on [https://www.maptiler.com](https://www.maptiler.com)  |
+|traffic| bool (default is false) | Color the streets based on traffic  |
 |userpin| object | See an example at the end of the page. Change the graphic style of the user's marker (double click on the map to view it). **image**: path of the image, **width**: image width (px), **height**: image height (px), **top**: top position (px)  |
 |zoom| number | zoom level of the map  |
 
