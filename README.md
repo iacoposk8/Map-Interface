@@ -1,4 +1,4 @@
-
+[![Support me](https://iacoposk8.github.io/img/buymepizza.png)](https://buymeacoffee.com/iacoposk8)
 
 # Map Interface
 A simple interface for Mapbox
